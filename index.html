@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1769e0">
+<title>Text2PDF</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 22px;
+  background: #f3f6fc;
+  font-family: Arial, sans-serif;
+  color: #17243a;
+}
+.app {
+  max-width: 600px;
+  margin: auto;
+}
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+header h1 {
+  color: #1769e0;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+textarea, input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccd5e2;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  background: white;
+}
+textarea {
+  height: 260px;
+  resize: vertical;
+  line-height: 1.6;
+}
+button {
+  width: 100%;
+  padding: 16px;
+  background: #1769e0;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+#paper { display: none; }
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  .app { display: none !important; }
+  #paper {
+    display: block !important;
+    color: black;
+    font-family: Arial, sans-serif;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-size: 12pt;
+    line-height: 1.7;
+    padding: 15mm;
+  }
+  #paper h2 {
+    font-size: 20pt;
+    margin-bottom: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Text2PDF</h1>
+    <p>Turn your text into PDF easily.</p>
+  </header>
+  <input id="title" placeholder="Document title">
+  <textarea id="content" placeholder="Write your text here..."></textarea>
+  <button onclick="makePDF()">Save as PDF</button>
+</div>
+<div id="paper">
+  <h2 id="pdfTitle"></h2>
+  <div id="pdfText"></div>
+</div>
+<script>
+function makePDF() {
+  const title = document.getElementById("title").value;
+  const content = document.getElementById("content").value;
+  if (!content.trim()) {
+    alert("Please enter some text first.");
+    return;
+  }
+  document.getElementById("pdfTitle").textContent =
+    title || "My Document";
+  document.getElementById("pdfText").textContent = content;
+  window.print();
+}
+</script>
+</body>
+</html>
